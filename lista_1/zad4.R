@@ -32,4 +32,7 @@ medic$masa
 medic$wysokosc
 
 # g)
+(medic[which(medic$BMI > 23),])
 
+# h)
+(which(medic$waga == "prawidlowa"))
