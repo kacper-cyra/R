@@ -1,6 +1,6 @@
 // @ts-nocheck
 import mocker, { Generator } from "mocker-data-generator";
-import fs from "fs";
+import {saveAsCSV, saveAsJSON} from "./helpers/saveFile"
 
 /*
 * toTest: faker.locale = "pl"
@@ -47,7 +47,7 @@ const satyGenerator = {
                 default:
                     result = ["Licencjat", "Magiterium"];
             }
-            return {values : result}
+            return result[this.chance.integer({"min": 0, "max": (result.length - 1)})]
         },
   },
   plec: {
@@ -156,15 +156,11 @@ mocker()
   .schema("saty", satyGenerator, 5)
   .build()
   .then(
-    (data) => {
-        try{
-            
+    (data : {saty: Array<saty>}) => {
+            //console.log(typeof(data))
+           // console.log(data)
+            saveAsCSV(data)
             console.log("Done.");
-        } catch{
-
-        }
-      
-      //console.log(util.inspect(data, { depth: 10 }))
     },
     (err) => console.log(err)
   );
